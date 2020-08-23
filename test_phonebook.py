@@ -5,18 +5,28 @@ from ClassPhonebook import PhoneBook
 
 
 class TestPhonebook(unittest.TestCase):
+
+	def setUp(self) -> None:
+		self.phonebook = PhoneBook()
+
 	def test_lookup_by_name(self):
-		phonebook = PhoneBook()
-		phonebook.add("Paul", "12345678910")
-		number = phonebook.lookup("Paul")
+		self.phonebook.add("Paul", "12345678910")
+		number = self.phonebook.lookup("Paul")
 		self.assertEqual("12345678910", number)
 
 	def test_name_missing(self):
-		phonebook = PhoneBook()
 		with self.assertRaises(KeyError):
-			phonebook.lookup("missing")
+			self.phonebook.lookup("missing")
 
-	@unittest.skip("Work In Progress")
 	def test_empty_phonebook_is_consistent(self):
-		phonebook = PhoneBook()
-		self.assertTrue(phonebook.is_consistent())
+		self.assertTrue(self.phonebook.is_consistent())
+
+	def test_is_consistent(self):
+		self.phonebook.add("Paul", "12345678910")
+		self.assertTrue(self.phonebook.is_consistent())
+		self.phonebook.add("John", "01234567891")
+		self.assertTrue(self.phonebook.is_consistent())
+		self.phonebook.add("George", "12345678910")
+		self.assertTrue(self.phonebook.is_consistent())
+		self.phonebook.add("George", "1234")
+		self.assertTrue(self.phonebook.is_consistent())
