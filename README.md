@@ -14,3 +14,5 @@ Addition info:
 
 Run tests:
         python -m pytest
+#With html-report generation
+        python -m pytest--html=report.html
